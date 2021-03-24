@@ -3,9 +3,55 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Service", "1 - Service", "{AE93E77A-3A2E-4C9B-9F28-46FF463B1BC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{171D593E-334A-4F28-939C-D046A346C18E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{BCEBDA2D-B2B7-48E1-9E60-FD2A63061C73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infrastructure", "4 - Infrastructure", "{71D4D3D6-2541-4E0D-B869-42C507E28F88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazingMicroService.Worker", "AmazingMicroService.Worker\AmazingMicroService.Worker.csproj", "{FAB93F83-5416-4DF3-95F3-CDCC3F20087F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Core", "0 - Core", "{62184457-29A9-4564-A04C-B7C5116AA016}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazingMicroStore.Core.Application", "AmazingMicroStore.Core\AmazingMicroStore.Core.Application.csproj", "{2D0A9EB4-CBF4-4B10-B29A-9E33FF8C11C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazingMicroService.Application", "AmazingMicroService.Application\AmazingMicroService.Application.csproj", "{93A3221C-804B-44DA-852C-FF1E9A5A8682}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmazingMicroStore.Core.InfraStructure", "AmazingMicroStore.Core.InfraStructure\AmazingMicroStore.Core.InfraStructure.csproj", "{5907C7E9-8B81-43F5-AE6F-5BD7F50A75BD}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAB93F83-5416-4DF3-95F3-CDCC3F20087F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAB93F83-5416-4DF3-95F3-CDCC3F20087F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAB93F83-5416-4DF3-95F3-CDCC3F20087F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAB93F83-5416-4DF3-95F3-CDCC3F20087F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0A9EB4-CBF4-4B10-B29A-9E33FF8C11C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0A9EB4-CBF4-4B10-B29A-9E33FF8C11C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0A9EB4-CBF4-4B10-B29A-9E33FF8C11C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0A9EB4-CBF4-4B10-B29A-9E33FF8C11C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93A3221C-804B-44DA-852C-FF1E9A5A8682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A3221C-804B-44DA-852C-FF1E9A5A8682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A3221C-804B-44DA-852C-FF1E9A5A8682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A3221C-804B-44DA-852C-FF1E9A5A8682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5907C7E9-8B81-43F5-AE6F-5BD7F50A75BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5907C7E9-8B81-43F5-AE6F-5BD7F50A75BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5907C7E9-8B81-43F5-AE6F-5BD7F50A75BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5907C7E9-8B81-43F5-AE6F-5BD7F50A75BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FAB93F83-5416-4DF3-95F3-CDCC3F20087F} = {AE93E77A-3A2E-4C9B-9F28-46FF463B1BC1}
+		{2D0A9EB4-CBF4-4B10-B29A-9E33FF8C11C5} = {62184457-29A9-4564-A04C-B7C5116AA016}
+		{93A3221C-804B-44DA-852C-FF1E9A5A8682} = {171D593E-334A-4F28-939C-D046A346C18E}
+		{5907C7E9-8B81-43F5-AE6F-5BD7F50A75BD} = {62184457-29A9-4564-A04C-B7C5116AA016}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD5C95BA-669B-4B99-B11A-7E4D929AC8BE}

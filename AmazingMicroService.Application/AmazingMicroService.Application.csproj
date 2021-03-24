@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AmazingMicroStore.Core.InfraStructure\AmazingMicroStore.Core.InfraStructure.csproj" />
+    <ProjectReference Include="..\AmazingMicroStore.Core\AmazingMicroStore.Core.Application.csproj" />
+  </ItemGroup>
+
+</Project>
