@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  amazingmicroservice.worker:
+    image: ${DOCKER_REGISTRY-}amazingmicroserviceworker
+    build:
+      context: .
+      dockerfile: AmazingMicroService.Worker/Dockerfile

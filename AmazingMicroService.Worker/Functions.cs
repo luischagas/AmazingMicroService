@@ -1,9 +1,9 @@
-﻿using AmazingMicroService.Application.Events.MessageEvents.Input;
-using AmazingMicroStore.Core.Application.Interfaces.Handler;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AmazingMicroService.Application.IntegrationEvents;
+using AmazingMicroService.Application.IntegrationEvents.Events;
 
 namespace AmazingMicroService.Worker
 {
@@ -11,15 +11,15 @@ namespace AmazingMicroService.Worker
     {
         #region Fields
 
-        private readonly IHandler _handler;
+        private readonly IMessageIntegrationEventService _messageIntegrationEventService;
 
         #endregion Fields
 
         #region Constructors
 
-        public Functions(IHandler handler)
+        public Functions(IMessageIntegrationEventService messageIntegrationEventService)
         {
-            _handler = handler;
+            _messageIntegrationEventService = messageIntegrationEventService;
         }
 
         #endregion Constructors
@@ -28,9 +28,11 @@ namespace AmazingMicroService.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            Console.WriteLine($@"Hello, I am the {Program.ApplicationName}");
+
             while (stoppingToken.IsCancellationRequested is false)
             {
-                await _handler.RaiseEvent(new SendMessageEvent
+                await _messageIntegrationEventService.PublishThroughEventBusAsync(new MessageEvent()
                 {
                     MicroServiceId = Program.ApplicationName,
                     Message = "Hello World"

@@ -3,18 +3,21 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.13" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AmazingMicroService.Application\AmazingMicroService.Application.csproj" />
-    <ProjectReference Include="..\AmazingMicroStore.Core.InfraStructure\AmazingMicroStore.Core.InfraStructure.csproj" />
-    <ProjectReference Include="..\AmazingMicroStore.Core\AmazingMicroStore.Core.Application.csproj" />
+    <ProjectReference Include="..\AmazingMicroService.Domain\AmazingMicroService.Domain.csproj" />
+    <ProjectReference Include="..\AmazingMicroService.Infrastructure\AmazingMicroService.Infrastructure.csproj" />
+    <ProjectReference Include="..\AmazingMicroService.Tests\AmazingMicroService.Tests.csproj" />
   </ItemGroup>
 
 </Project>

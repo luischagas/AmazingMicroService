@@ -10,8 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AmazingMicroStore.Core.InfraStructure\AmazingMicroStore.Core.InfraStructure.csproj" />
-    <ProjectReference Include="..\AmazingMicroStore.Core\AmazingMicroStore.Core.Application.csproj" />
+    <ProjectReference Include="..\AmazingMicroService.Domain\AmazingMicroService.Domain.csproj" />
   </ItemGroup>
 
 </Project>

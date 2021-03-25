@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AmazingMicroService.Worker": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
