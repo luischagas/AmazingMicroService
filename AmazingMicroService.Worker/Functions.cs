@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using AmazingMicroService.Application;
+using AmazingMicroService.Domain.Events;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AmazingMicroService.Application.IntegrationEvents;
-using AmazingMicroService.Application.IntegrationEvents.Events;
+using AmazingMicroService.Application.Interfaces;
 
 namespace AmazingMicroService.Worker
 {
@@ -32,11 +33,7 @@ namespace AmazingMicroService.Worker
 
             while (stoppingToken.IsCancellationRequested is false)
             {
-                await _messageIntegrationEventService.PublishThroughEventBusAsync(new MessageEvent()
-                {
-                    MicroServiceId = Program.ApplicationName,
-                    Message = "Hello World"
-                });
+                await _messageIntegrationEventService.PublishThroughEventBusAsync(Program.ApplicationName, "Hello World");
 
                 await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
             }

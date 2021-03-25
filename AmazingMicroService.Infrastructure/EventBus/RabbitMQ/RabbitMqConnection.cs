@@ -1,7 +1,9 @@
-﻿using AmazingMicroService.Domain.Interfaces.EventBus.RabbitMQ;
-using AmazingMicroService.Infrastructure.Properties;
+﻿using AmazingMicroService.DomainService.Interfaces.EventBus.RabbitMQ;
+using Polly;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Exceptions;
 using System;
+using System.Net.Sockets;
 
 namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
 {
@@ -11,21 +13,23 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
 
         private readonly IConnectionFactory _connectionFactory;
         private readonly object _connectionLock = new object();
+        private readonly int _retryAttempts;
         private IConnection _connection;
         private bool _disposed;
-
         #endregion Fields
 
         #region Constructors
 
-        public RabbitMqConnection()
+        public RabbitMqConnection(string hostname, string username, string password, string retryAttempts)
         {
             _connectionFactory = new ConnectionFactory()
             {
-                HostName = Resources.Hostname,
-                UserName = Resources.UserName,
-                Password = Resources.Password
+                HostName = hostname,
+                UserName = username,
+                Password = password
             };
+
+            _retryAttempts = int.Parse(retryAttempts);
         }
 
         #endregion Constructors
@@ -50,8 +54,12 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
         {
             lock (_connectionLock)
             {
-                _connection = _connectionFactory
-                    .CreateConnection();
+                var policy = Policy
+                    .Handle<SocketException>()
+                    .Or<BrokerUnreachableException>()
+                    .WaitAndRetry(_retryAttempts, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+
+                policy.Execute(() => _connection = _connectionFactory.CreateConnection());
 
                 return IsConnected;
             }

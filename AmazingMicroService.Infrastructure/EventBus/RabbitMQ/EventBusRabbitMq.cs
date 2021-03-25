@@ -1,6 +1,7 @@
-﻿using AmazingMicroService.Domain.Interfaces.EventBus.RabbitMQ;
-using AmazingMicroService.Domain.Interfaces.EventBus.SubscriptionManager;
-using AmazingMicroService.Infrastructure.Properties;
+﻿using AmazingMicroService.DomainService.Interfaces.EventBus.RabbitMQ;
+using AmazingMicroService.DomainService.Interfaces.EventBus.SubscriptionManager;
+using AmazingMicroService.DomainService.Interfaces.Events;
+using AmazingMicroService.DomainService.Interfaces.Handler;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -9,8 +10,6 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using AmazingMicroService.Domain.Interfaces.Events;
-using AmazingMicroService.Domain.Interfaces.Handler;
 
 namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
 {
@@ -32,11 +31,11 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
 
         #region Constructors
 
-        public EventBusRabbitMq(IServiceProvider serviceProvider, string applicationName)
+        public EventBusRabbitMq(IServiceProvider serviceProvider, string applicationName, string queueName, string exchangeName, string exchangeType)
         {
-            _queueName = Resources.QueueName;
-            _exchangeName = Resources.ExchangeName;
-            _exchangeType = Resources.ExchangeType;
+            _queueName = queueName;
+            _exchangeName = exchangeName;
+            _exchangeType = exchangeType;
             _applicationName = applicationName;
 
             _connection = serviceProvider.GetRequiredService<IRabbitMqConnection>()
@@ -134,6 +133,7 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
                     var message = Encoding.UTF8.GetString(ea.Body.ToArray());
 
                     await ProcessEvent(eventName, message);
+
                     channel.BasicAck(ea.DeliveryTag, false);
                 }
                 else

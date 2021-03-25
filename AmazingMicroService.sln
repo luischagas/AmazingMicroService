@@ -19,11 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Tests", "5 - Tests", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazingMicroService.Tests", "AmazingMicroService.Tests\AmazingMicroService.Tests.csproj", "{A82822FF-1EB5-4DDF-9B23-E1CE0635A4CF}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BE8FA2D7-0F15-4F58-A805-1F3FA7C2A0B3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazingMicroService.Domain", "AmazingMicroService.Domain\AmazingMicroService.Domain.csproj", "{E56722E8-EBA4-40DC-94D2-462D3D629EB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmazingMicroService.Infrastructure", "AmazingMicroService.Infrastructure\AmazingMicroService.Infrastructure.csproj", "{768CEFF8-E05C-401B-B3B8-B8CAA19055B6}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B6420872-9BDA-492E-AA29-E0757ED2B10C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmazingMicroService.DomainService", "..\AmazingMicroService.DomainService\AmazingMicroService.DomainService.csproj", "{3AE50448-75F9-41B4-A241-744535431B50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +45,6 @@ Global
 		{A82822FF-1EB5-4DDF-9B23-E1CE0635A4CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A82822FF-1EB5-4DDF-9B23-E1CE0635A4CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A82822FF-1EB5-4DDF-9B23-E1CE0635A4CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE8FA2D7-0F15-4F58-A805-1F3FA7C2A0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE8FA2D7-0F15-4F58-A805-1F3FA7C2A0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE8FA2D7-0F15-4F58-A805-1F3FA7C2A0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE8FA2D7-0F15-4F58-A805-1F3FA7C2A0B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E56722E8-EBA4-40DC-94D2-462D3D629EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E56722E8-EBA4-40DC-94D2-462D3D629EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E56722E8-EBA4-40DC-94D2-462D3D629EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +53,14 @@ Global
 		{768CEFF8-E05C-401B-B3B8-B8CAA19055B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{768CEFF8-E05C-401B-B3B8-B8CAA19055B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{768CEFF8-E05C-401B-B3B8-B8CAA19055B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6420872-9BDA-492E-AA29-E0757ED2B10C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6420872-9BDA-492E-AA29-E0757ED2B10C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6420872-9BDA-492E-AA29-E0757ED2B10C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6420872-9BDA-492E-AA29-E0757ED2B10C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AE50448-75F9-41B4-A241-744535431B50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AE50448-75F9-41B4-A241-744535431B50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AE50448-75F9-41B4-A241-744535431B50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AE50448-75F9-41B4-A241-744535431B50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{A82822FF-1EB5-4DDF-9B23-E1CE0635A4CF} = {3B723B4B-0E8D-4773-8233-D38E02782961}
 		{E56722E8-EBA4-40DC-94D2-462D3D629EB9} = {BCEBDA2D-B2B7-48E1-9E60-FD2A63061C73}
 		{768CEFF8-E05C-401B-B3B8-B8CAA19055B6} = {71D4D3D6-2541-4E0D-B869-42C507E28F88}
+		{3AE50448-75F9-41B4-A241-744535431B50} = {BCEBDA2D-B2B7-48E1-9E60-FD2A63061C73}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD5C95BA-669B-4B99-B11A-7E4D929AC8BE}

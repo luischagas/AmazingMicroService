@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AmazingMicroService.Application.IntegrationEvents.Events;
 using MediatR;
 using Newtonsoft.Json;
 
-namespace AmazingMicroService.Application.IntegrationEvents.EventHandlings
+namespace AmazingMicroService.Domain.Events
 {
     public class MessageEventHandler :
         IRequestHandler<MessageEvent>

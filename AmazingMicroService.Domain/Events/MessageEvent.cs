@@ -1,6 +1,6 @@
-﻿using AmazingMicroService.Domain.Interfaces.Events;
+﻿using AmazingMicroService.DomainService.Interfaces.Events;
 
-namespace AmazingMicroService.Application.IntegrationEvents.Events
+namespace AmazingMicroService.Domain.Events
 {
     public class MessageEvent : Event<MessageEvent>
     {

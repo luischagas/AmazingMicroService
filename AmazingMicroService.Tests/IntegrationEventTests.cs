@@ -1,9 +1,10 @@
-﻿using AmazingMicroService.Application.IntegrationEvents;
-using AmazingMicroService.Application.IntegrationEvents.Events;
-using AmazingMicroService.Domain.Interfaces.EventBus.RabbitMQ;
+﻿using AmazingMicroService.Domain.Events;
 using Moq;
 using System;
 using System.Threading.Tasks;
+using AmazingMicroService.Application;
+using AmazingMicroService.DomainService;
+using AmazingMicroService.DomainService.Interfaces.EventBus.RabbitMQ;
 using Xunit;
 
 namespace AmazingMicroService.Tests
@@ -12,7 +13,7 @@ namespace AmazingMicroService.Tests
     {
         #region Fields
 
-        private readonly Mock<IEventBusRabbitMq> _integrationRabbitMqServiceFaker;
+        private readonly Mock<IEventBusRabbitMq> _eventBusRabbitMqFaker;
 
         #endregion Fields
 
@@ -20,7 +21,7 @@ namespace AmazingMicroService.Tests
 
         public IntegrationEventTests()
         {
-            _integrationRabbitMqServiceFaker = new Mock<IEventBusRabbitMq>();
+            _eventBusRabbitMqFaker = new Mock<IEventBusRabbitMq>();
         }
 
         #endregion Constructors
@@ -30,17 +31,17 @@ namespace AmazingMicroService.Tests
         [Fact(DisplayName = "Given a valid event, it must be published in the queue.")]
         public async Task PublishHelloWordMessageEvent()
         {
+            var service = new MessageIntegrationEventService(_eventBusRabbitMqFaker.Object);
+
+            await service.PublishThroughEventBusAsync($"Service - {Guid.NewGuid()}", "Hello World");
+
             var @event = new MessageEvent()
             {
                 MicroServiceId = $"Service - {Guid.NewGuid()}",
                 Message = "Hello World"
             };
 
-            var service = new MessageIntegrationEventService(_integrationRabbitMqServiceFaker.Object);
-
-            await service.PublishThroughEventBusAsync(@event);
-
-            _integrationRabbitMqServiceFaker.Verify(x => x.EnqueueEvent(@event));
+            _eventBusRabbitMqFaker.Verify(x => x.EnqueueEvent(@event));
         }
 
         #endregion Methods

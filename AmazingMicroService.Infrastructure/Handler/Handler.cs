@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using AmazingMicroService.DomainService.Interfaces.Handler;
+using MediatR;
 using System.Threading.Tasks;
-using AmazingMicroService.Domain.Interfaces.Handler;
 
 namespace AmazingMicroService.Infrastructure.Handler
 {
