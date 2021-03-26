@@ -27,11 +27,11 @@ namespace AmazingMicroService.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Console.WriteLine($@"Hello, I am the {Startup.ApplicationName}");
+            Console.WriteLine($@"Hello, I am the {Program.ApplicationName}");
 
             while (stoppingToken.IsCancellationRequested is false)
             {
-                await _messageIntegrationEventService.PublishThroughEventBusAsync(Startup.ApplicationName, "Hello World");
+                await _messageIntegrationEventService.PublishThroughEventBusAsync(Program.ApplicationName, "Hello World");
 
                 await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
             }
