@@ -6,7 +6,6 @@ services:
         environment:
             RABBITMQ_DEFAULT_USER: "USER"
             RABBITMQ_DEFAULT_PASS: "PASSWORD"
-            Hostname: "rabbitmq"
         ports:
             - "5672:5672"
             - "15672:15672"
@@ -40,7 +39,7 @@ services:
       context: .
       dockerfile: AmazingMicroService.Worker/Dockerfile
     environment:
-        - RabbitMqHost=rabbitmq
+        - ASPNETCORE_ENVIRONMENT=DockerDevelopment
     depends_on:
      rabbitmq:
         condition: service_healthy

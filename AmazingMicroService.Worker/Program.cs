@@ -1,4 +1,5 @@
 ﻿using AmazingMicroService.Application;
+using AmazingMicroService.Application.Interfaces;
 using AmazingMicroService.Domain.Events;
 using AmazingMicroService.DomainService.Interfaces.EventBus.RabbitMQ;
 using AmazingMicroService.DomainService.Interfaces.EventBus.SubscriptionManager;
@@ -10,10 +11,6 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using AmazingMicroService.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Core;
@@ -21,6 +18,9 @@ using Serilog.Events;
 using Serilog.Formatting.Json;
 using Serilog.Sinks.RabbitMQ;
 using Serilog.Sinks.RabbitMQ.Sinks.RabbitMQ;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace AmazingMicroService.Worker
 {
@@ -31,7 +31,6 @@ namespace AmazingMicroService.Worker
         public static readonly string ApplicationName = $"Service - " + Guid.NewGuid();
         private static IConfigurationRoot _configuration;
 
-
         #endregion Fields
 
         #region Methods
@@ -40,14 +39,24 @@ namespace AmazingMicroService.Worker
         {
             var builder = new HostBuilder();
 
+            var environmentConfiguration = new ConfigurationBuilder()
+                .AddEnvironmentVariables()
+                .Build();
+
+            var environmentName = environmentConfiguration["ASPNETCORE_ENVIRONMENT"];
+
             _configuration = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(AppContext.BaseDirectory))
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{environmentName}.json", true, false)
+                .AddEnvironmentVariables()
+                .AddCommandLine(args)
                 .Build();
 
-            builder.ConfigureServices(services =>
+            builder
+                .ConfigureServices(services =>
             {
-                //var rabbitMqSettings = configuration.GetSection("RabbitMQSettings");
+                var rabbitMqSettings = _configuration.GetSection("RabbitMQSettings");
 
                 ConfigureSerilog(services);
 
@@ -59,13 +68,13 @@ namespace AmazingMicroService.Worker
                 services.AddSingleton<IMessageIntegrationEventService, MessageIntegrationEventService>();
 
                 services.AddSingleton<IRabbitMqConnection>(i =>
-                    new RabbitMqConnection(_configuration["RabbitMqHost"], _configuration["RabbitMqUser"],
-                        _configuration["RabbitMqPassword"], _configuration["RabbitMqRetryAttempts"]));
+                    new RabbitMqConnection(rabbitMqSettings["RabbitMqHost"], rabbitMqSettings["RabbitMqUser"],
+                        rabbitMqSettings["RabbitMqPassword"], rabbitMqSettings["RabbitMqRetryAttempts"]));
 
                 services.AddScoped<MessageEventHandler>();
                 services.AddSingleton<IEventBusRabbitMq, EventBusRabbitMq>(serviceProvider =>
                 {
-                    var integration = new EventBusRabbitMq(serviceProvider, ApplicationName, _configuration["RabbitMqQueueName"], _configuration["RabbitMqExchangeName"], _configuration["RabbitMqExchangeType"]);
+                    var integration = new EventBusRabbitMq(serviceProvider, ApplicationName, rabbitMqSettings["RabbitMqQueueName"], rabbitMqSettings["RabbitMqExchangeName"], rabbitMqSettings["RabbitMqExchangeType"]);
 
                     integration.Subscribe<MessageEvent, MessageEventHandler>();
 
@@ -75,7 +84,9 @@ namespace AmazingMicroService.Worker
                 services.AddHostedService<Functions>();
             });
 
-            var host = builder.UseConsoleLifetime().Build();
+            var host = builder
+                .UseConsoleLifetime()
+                .Build();
 
             using (host)
             {
@@ -104,6 +115,7 @@ namespace AmazingMicroService.Worker
                 .MinimumLevel.Information()
                 .MinimumLevel.Override("Microsoft", new LoggingLevelSwitch(LogEventLevel.Error))
                 .Enrich.FromLogContext()
+                //.WriteTo.Console() If you want to view the log on the console
                 .WriteTo.RabbitMQ((clientConfiguration, sinkConfiguration) =>
                 {
                     clientConfiguration.From(rabbitConfig);
