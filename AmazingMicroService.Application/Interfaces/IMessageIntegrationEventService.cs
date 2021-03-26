@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using AmazingMicroService.Domain.Events;
+﻿using AmazingMicroService.Domain.Events;
 using AmazingMicroService.DomainService.Interfaces.Events;
+using System.Threading.Tasks;
 
 namespace AmazingMicroService.Application.Interfaces
 {

@@ -1,10 +1,10 @@
-﻿using AmazingMicroService.Domain.Models;
-using AmazingMicroService.DomainService.Interfaces.EventBus.SubscriptionManager;
+﻿using AmazingMicroService.DomainService.Interfaces.EventBus.SubscriptionManager;
 using AmazingMicroService.DomainService.Interfaces.Events;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AmazingMicroService.Infrastructure.EventBus.SubscriptionManager.Models;
 
 namespace AmazingMicroService.Infrastructure.EventBus.SubscriptionManager
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmazingMicroService.Domain.Models
+namespace AmazingMicroService.Infrastructure.EventBus.SubscriptionManager.Models
 {
     public class Subscription
     {

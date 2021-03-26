@@ -1,10 +1,9 @@
 ﻿using AmazingMicroService.Application.Interfaces;
+using AmazingMicroService.Domain.Events;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AmazingMicroService.Domain.Events;
-using AmazingMicroService.DomainService.Interfaces.Events;
 
 namespace AmazingMicroService.Worker
 {

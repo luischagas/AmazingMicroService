@@ -1,11 +1,10 @@
-﻿using System;
+﻿using AmazingMicroService.Application.Interfaces;
 using AmazingMicroService.Domain.Events;
 using AmazingMicroService.DomainService.Interfaces.EventBus.RabbitMQ;
-using System.Threading.Tasks;
-using AmazingMicroService.Application.Interfaces;
 using AmazingMicroService.DomainService.Interfaces.Events;
 using Microsoft.Extensions.Logging;
-using Serilog;
+using System;
+using System.Threading.Tasks;
 
 namespace AmazingMicroService.Application
 {
@@ -32,12 +31,6 @@ namespace AmazingMicroService.Application
 
         public async Task PublishEventBusAsync(Event<MessageEvent> @event)
         {
-            //var @event = new MessageEvent()
-            //{
-            //    MicroServiceId = applicationName,
-            //    Message = message
-            //};
-
             try
             {
                 _logger.LogInformation("Publishing event: {event}", @event);
@@ -46,11 +39,10 @@ namespace AmazingMicroService.Application
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex,"Error publishing event: {event}", @event);
+                _logger.LogInformation(ex, "Error publishing event: {event}", @event);
             }
 
             await Task.Yield();
-
         }
 
         #endregion Methods

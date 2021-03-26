@@ -16,6 +16,7 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
         private readonly int _retryAttempts;
         private IConnection _connection;
         private bool _disposed;
+
         #endregion Fields
 
         #region Constructors

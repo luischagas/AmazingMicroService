@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MediatR;
+using Newtonsoft.Json;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using Newtonsoft.Json;
 
 namespace AmazingMicroService.Domain.Events
 {
@@ -10,7 +10,6 @@ namespace AmazingMicroService.Domain.Events
         IRequestHandler<MessageEvent>
 
     {
-
         #region Constructors
 
         public MessageEventHandler()
@@ -23,7 +22,6 @@ namespace AmazingMicroService.Domain.Events
 
         public async Task<Unit> Handle(MessageEvent request, CancellationToken cancellationToken)
         {
-
             Console.WriteLine(JsonConvert.SerializeObject(request));
 
             return Unit.Value;

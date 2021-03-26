@@ -1,6 +1,6 @@
-﻿using System;
-using AmazingMicroService.DomainService.Interfaces.Events;
+﻿using AmazingMicroService.DomainService.Interfaces.Events;
 using MediatR;
+using System;
 
 namespace AmazingMicroService.DomainService.Interfaces.EventBus.SubscriptionManager
 {

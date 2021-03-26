@@ -4,13 +4,13 @@ using AmazingMicroService.DomainService.Interfaces.Events;
 using AmazingMicroService.DomainService.Interfaces.Handler;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
 {
@@ -90,7 +90,6 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
             {
                 _logger.LogInformation("Publishing in queue: {event}", @event);
 
-
                 channel.BasicPublish(_exchangeName,
                     eventName,
                     true,
@@ -101,7 +100,12 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
             {
                 _logger.LogInformation(ex, "Error publishing in queue: {event}", @event);
             }
+        }
 
+        public void Dispose()
+        {
+            _channel?.Dispose();
+            _memorySubscriptionManager.Clear();
         }
 
         private void DoInternalSubscription(string eventName)
@@ -178,13 +182,6 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
                 await _handler.Send(integrationEvent);
             }
         }
-
-        public void Dispose()
-        {
-            _channel?.Dispose();
-            _memorySubscriptionManager.Clear();
-        }
-
         #endregion Methods
     }
 }
