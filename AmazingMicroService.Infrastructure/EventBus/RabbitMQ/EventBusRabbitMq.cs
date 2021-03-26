@@ -10,6 +10,8 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using ILogger = Serilog.ILogger;
 
 namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
 {
@@ -20,6 +22,7 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
         private readonly IRabbitMqConnection _connection;
         private readonly IMemorySubscriptionManager _memorySubscriptionManager;
         private readonly IHandler _handler;
+        private readonly ILogger<EventBusRabbitMq> _logger;
 
         private readonly string _queueName;
         private readonly string _exchangeName;
@@ -46,6 +49,9 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
 
             _handler = serviceProvider.GetRequiredService<IHandler>()
                                          ?? throw new ArgumentNullException(nameof(_handler));
+
+            _logger = serviceProvider.GetRequiredService<ILogger<EventBusRabbitMq>>()
+                       ?? throw new ArgumentNullException(nameof(_logger));
 
             _channel = CreateConsumerChannel();
         }
@@ -82,14 +88,18 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
             properties.CorrelationId = @event.MicroServiceId;
             try
             {
+                _logger.LogInformation("Publishing in queue: {event}", @event);
+
+
                 channel.BasicPublish(_exchangeName,
                     eventName,
                     true,
                     properties,
                     body);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                _logger.LogInformation(ex, "Error publishing in queue: {event}", @event);
                 return false;
             }
 
@@ -130,6 +140,7 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
                 if (ea.BasicProperties.CorrelationId != _applicationName)
                 {
                     var eventName = ea.RoutingKey;
+
                     var message = Encoding.UTF8.GetString(ea.Body.ToArray());
 
                     await ProcessEvent(eventName, message);
@@ -161,6 +172,10 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
             {
                 var eventType = _memorySubscriptionManager.GetEventType(eventName);
                 var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
+
+                _logger.LogInformation(
+                    "Receiving event ({@IntegrationEvent})",
+                     integrationEvent);
 
                 await _handler.Send(integrationEvent);
             }

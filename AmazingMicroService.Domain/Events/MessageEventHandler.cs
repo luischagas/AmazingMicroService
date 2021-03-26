@@ -10,6 +10,7 @@ namespace AmazingMicroService.Domain.Events
         IRequestHandler<MessageEvent>
 
     {
+
         #region Constructors
 
         public MessageEventHandler()
@@ -22,6 +23,7 @@ namespace AmazingMicroService.Domain.Events
 
         public async Task<Unit> Handle(MessageEvent request, CancellationToken cancellationToken)
         {
+
             Console.WriteLine(JsonConvert.SerializeObject(request));
 
             return Unit.Value;

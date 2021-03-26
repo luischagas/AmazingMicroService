@@ -1,10 +1,8 @@
-﻿using AmazingMicroService.Application;
-using AmazingMicroService.Domain.Events;
+﻿using AmazingMicroService.Application.Interfaces;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AmazingMicroService.Application.Interfaces;
 
 namespace AmazingMicroService.Worker
 {
@@ -29,11 +27,11 @@ namespace AmazingMicroService.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Console.WriteLine($@"Hello, I am the {Program.ApplicationName}");
+            Console.WriteLine($@"Hello, I am the {Startup.ApplicationName}");
 
             while (stoppingToken.IsCancellationRequested is false)
             {
-                await _messageIntegrationEventService.PublishThroughEventBusAsync(Program.ApplicationName, "Hello World");
+                await _messageIntegrationEventService.PublishThroughEventBusAsync(Startup.ApplicationName, "Hello World");
 
                 await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
             }

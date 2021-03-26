@@ -1,9 +1,7 @@
 version: '3.4'
 
 services:
- ##########################################################
   rabbitmq:
-        hostname: rabbitmq
         image: rabbitmq:3-management-alpine
         environment:
             RABBITMQ_DEFAULT_USER: "USER"
@@ -19,17 +17,37 @@ services:
             retries: 5
         volumes:
             - ./cert_rabbitmq:/cert_rabbitmq
-  ##########################################################
+        networks:
+            - amazing-dev
+  
   amazingmicroservice.worker:
     image: ${DOCKER_REGISTRY-}amazingmicroserviceworker
     build:
       context: .
       dockerfile: AmazingMicroService.Worker/Dockerfile
     environment:
-        Hostname: "rabbitmq"
+        - ASPNETCORE_ENVIRONMENT=DockerDevelopment
     depends_on:
      rabbitmq:
         condition: service_healthy
     restart: on-failure
-    
-  ##########################################################
+    networks:
+         - amazing-dev
+
+  amazingmicroservice.worker2:
+    image: ${DOCKER_REGISTRY-}amazingmicroserviceworker
+    build:
+      context: .
+      dockerfile: AmazingMicroService.Worker/Dockerfile
+    environment:
+        - RabbitMqHost=rabbitmq
+    depends_on:
+     rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+         - amazing-dev
+
+networks:
+    amazing-dev:
+        driver: bridge
