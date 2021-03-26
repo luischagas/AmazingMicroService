@@ -1,38 +1,3 @@
 version: '3.4'
 services:
-  rabbitmq:
-        image: rabbitmq:3-management-alpine
-        environment:
-            RABBITMQ_DEFAULT_USER: "USER"
-            RABBITMQ_DEFAULT_PASS: "PASSWORD"
-            Hostname: "rabbitmq"
-        ports:
-            - "5672:5672"
-            - "15672:15672"
-        healthcheck:
-            test: [ "CMD", "nc", "-z", "localhost", "5672" ]
-            interval: 10s
-            timeout: 10s
-            retries: 5
-        volumes:
-            - ./cert_rabbitmq:/cert_rabbitmq
-        networks:
-            - amazing-dev
-  
   amazingmicroservice.worker:
-    image: ${DOCKER_REGISTRY-}amazingmicroserviceworker
-    build:
-      context: .
-      dockerfile: AmazingMicroService.Worker/Dockerfile
-    environment:
-        - ASPNETCORE_ENVIRONMENT=DockerDevelopment
-    depends_on:
-     rabbitmq:
-        condition: service_healthy
-    restart: on-failure
-    networks:
-         - amazing-dev
-
-networks:
-    amazing-dev:
-        driver: bridge

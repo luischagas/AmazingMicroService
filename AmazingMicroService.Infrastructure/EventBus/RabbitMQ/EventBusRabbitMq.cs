@@ -11,7 +11,6 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using ILogger = Serilog.ILogger;
 
 namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
 {

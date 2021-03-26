@@ -1,15 +1,4 @@
-﻿using AmazingMicroService.Application;
-using AmazingMicroService.Domain.Events;
-using AmazingMicroService.DomainService.Interfaces.EventBus.RabbitMQ;
-using Moq;
-using System;
-using System.Threading.Tasks;
-using AmazingMicroService.DomainService.Interfaces.Events;
-using Microsoft.Extensions.Logging;
-using Xunit;
-using ILogger = Serilog.ILogger;
-
-namespace AmazingMicroService.Tests
+﻿namespace AmazingMicroService.Tests
 {
     public class IntegrationEventTests
     {

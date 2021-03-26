@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AmazingMicroService.DomainService\AmazingMicroService.DomainService.csproj" />
     <ProjectReference Include="..\AmazingMicroService.Application\AmazingMicroService.Application.csproj" />
     <ProjectReference Include="..\AmazingMicroService.Domain\AmazingMicroService.Domain.csproj" />
   </ItemGroup>

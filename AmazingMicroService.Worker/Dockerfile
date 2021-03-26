@@ -8,6 +8,7 @@ WORKDIR /src
 COPY ["AmazingMicroService.Worker/AmazingMicroService.Worker.csproj", "AmazingMicroService.Worker/"]
 COPY ["AmazingMicroService.Infrastructure/AmazingMicroService.Infrastructure.csproj", "AmazingMicroService.Infrastructure/"]
 COPY ["AmazingMicroService.Domain/AmazingMicroService.Domain.csproj", "AmazingMicroService.Domain/"]
+COPY ["AmazingMicroService.DomainService/AmazingMicroService.DomainService.csproj", "AmazingMicroService.DomainService/"]
 COPY ["AmazingMicroService.Application/AmazingMicroService.Application.csproj", "AmazingMicroService.Application/"]
 COPY ["AmazingMicroService.Tests/AmazingMicroService.Tests.csproj", "AmazingMicroService.Tests/"]
 RUN dotnet restore "AmazingMicroService.Worker/AmazingMicroService.Worker.csproj"
