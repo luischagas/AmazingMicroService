@@ -68,7 +68,7 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
             _memorySubscriptionManager.AddEventSubscription<TEvent, TRequestHandler>();
         }
 
-        public bool EnqueueEvent<TEvent>(Event<TEvent> @event) where TEvent : Event<TEvent>
+        public void EnqueueEvent<TEvent>(Event<TEvent> @event) where TEvent : Event<TEvent>
         {
             if (_connection.IsConnected is false)
                 _connection.TryConnect();
@@ -85,6 +85,7 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
             var properties = channel.CreateBasicProperties();
             properties.DeliveryMode = 2;
             properties.CorrelationId = @event.MicroServiceId;
+
             try
             {
                 _logger.LogInformation("Publishing in queue: {event}", @event);
@@ -99,10 +100,8 @@ namespace AmazingMicroService.Infrastructure.EventBus.RabbitMQ
             catch (Exception ex)
             {
                 _logger.LogInformation(ex, "Error publishing in queue: {event}", @event);
-                return false;
             }
 
-            return true;
         }
 
         private void DoInternalSubscription(string eventName)

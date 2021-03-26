@@ -1,44 +1,51 @@
-﻿namespace AmazingMicroService.Tests
+﻿using AmazingMicroService.Application;
+using AmazingMicroService.Domain.Events;
+using AmazingMicroService.DomainService.Interfaces.EventBus.RabbitMQ;
+using Microsoft.Extensions.Logging;
+using Moq;
+using System;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace AmazingMicroService.Tests
 {
     public class IntegrationEventTests
     {
-        //#region Fields
+        #region Fields
 
-        //private readonly Mock<IEventBusRabbitMq> _eventBusRabbitMqFaker;
-        //private readonly Mock<IEvent> _event;
-        //private readonly Mock<ILogger<Mock>> _logger;
+        private readonly Mock<IEventBusRabbitMq> _eventBusRabbitMq;
+        private readonly Mock<ILogger<MessageIntegrationEventService>> _logger;
 
-        //#endregion Fields
+        #endregion Fields
 
-        //#region Constructors
+        #region Constructors
 
-        //public IntegrationEventTests()
-        //{
-        //    _eventBusRabbitMqFaker = new Mock<IEventBusRabbitMq>();
-        //    _event = new Mock<IEvent>();
-        //    _logger = new Mock<ILogger<Mock>>();
-        //}
+        public IntegrationEventTests()
+        {
+            _eventBusRabbitMq = new Mock<IEventBusRabbitMq>();
+            _logger = new Mock<ILogger<MessageIntegrationEventService>>();
+        }
 
-        //#endregion Constructors
+        #endregion Constructors
 
-        //#region Methods
+        #region Methods
 
-        //[Fact(DisplayName = "Given a valid event, it must be published in the queue.")]
-        //public async Task PublishHelloWordMessageEvent()
-        //{
-        //    var service = new MessageIntegrationEventService(_eventBusRabbitMqFaker.Object, _logger.Object);
+        [Fact(DisplayName = "Given a valid event, it must be published in the queue.")]
+        public async Task PublishHelloWordMessageEvent()
+        {
+            var service = new MessageIntegrationEventService(_eventBusRabbitMq.Object, _logger.Object);
 
-        //    await service.PublishThroughEventBusAsync($"Service - {Guid.NewGuid()}", "Hello World");
+            var @event = new MessageEvent()
+            {
+                MicroServiceId = $"Service - {Guid.NewGuid()}",
+                Message = "Hello World"
+            };
 
-        //    var @event = new MessageEvent()
-        //    {
-        //        MicroServiceId = $"Service - {Guid.NewGuid()}",
-        //        Message = "Hello World"
-        //    };
+            await service.PublishEventBusAsync(@event);
 
-        //    _eventBusRabbitMqFaker.Verify(x => x.EnqueueEvent(@event));
-        //}
+            _eventBusRabbitMq.Verify(x => x.EnqueueEvent(@event));
+        }
 
-        //#endregion Methods
+        #endregion Methods
     }
 }

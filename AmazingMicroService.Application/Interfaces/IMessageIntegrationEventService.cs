@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using AmazingMicroService.Domain.Events;
+using AmazingMicroService.DomainService.Interfaces.Events;
 
 namespace AmazingMicroService.Application.Interfaces
 {
@@ -6,7 +8,7 @@ namespace AmazingMicroService.Application.Interfaces
     {
         #region Methods
 
-        Task PublishThroughEventBusAsync(string applicationName, string message);
+        Task PublishEventBusAsync(Event<MessageEvent> @event);
 
         #endregion Methods
     }

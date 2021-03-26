@@ -11,7 +11,7 @@ namespace AmazingMicroService.DomainService.Interfaces.EventBus.RabbitMQ
         void Subscribe<TEvent, TRequestHandler>() where TEvent : Event<TEvent>
             where TRequestHandler : IRequestHandler<TEvent>;
 
-        bool EnqueueEvent<TEvent>(Event<TEvent> @event) where TEvent : Event<TEvent>;
+        void EnqueueEvent<TEvent>(Event<TEvent> @event) where TEvent : Event<TEvent>;
 
         #endregion Methods
     }
