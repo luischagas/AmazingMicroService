@@ -25,3 +25,5 @@ Caso queira executar duas instâncias do mesmo serviço hospedado no docker, bas
 ```bash
 docker-compose up
 ```
+
+Com isso é possível verificar a comunicação entre eles.
