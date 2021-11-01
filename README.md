@@ -12,7 +12,7 @@ docker run -d -p 15672:15672 -p 5672:5672 -p 5671:5671 --hostname my-rabbitmq --
 
 ## O que foi implementado?
 
-- Arquiterura Clean
+- Arquitetura Clean
 - RabbitMQ
 - Testes
 - Logger
